@@ -1,0 +1,365 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f3f6f5;
+  --foreground: #0c1815;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-wordmark: var(--font-exo2);
+
+  /* Vorentice design tokens */
+  --color-ink: #0c1815;
+  --color-soft: #64766f;
+  --color-faint: #93a39d;
+  --color-line: #dde6e3;
+  --color-card: #fcfefd;
+  --color-mint: #e2f3ef;
+  --color-void: #070c0b;
+  --color-accent: #0d9488;
+  --color-accent-bright: #2dd4bf;
+  --color-flow: #5eb8ac;
+  --color-ok: #10b981;
+  --color-warn: #d97706;
+  --color-alarm: #dc2626;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: rgba(20, 184, 166, 0.25);
+}
+
+/* ————— keyframes ————— */
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.55);
+    opacity: 0.85;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -120;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes blink-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* ————— component helpers ————— */
+
+.route-flow {
+  stroke-dasharray: 2.5 9;
+  animation: dash-flow 3.2s linear infinite;
+}
+
+.route-flow-slow {
+  stroke-dasharray: 2.5 11;
+  animation: dash-flow 5.5s linear infinite;
+}
+
+/* Route Agent active-corridor flow — travels origin → India. */
+.rn-flow {
+  stroke-dasharray: 1.5 10;
+  animation: dash-flow 2.6s linear infinite;
+}
+
+.pulse-ring {
+  animation: pulse-ring 2.6s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+}
+
+.live-dot {
+  animation: blink-soft 1.9s ease-in-out infinite;
+}
+
+.ticker-track {
+  animation: marquee 52s linear infinite;
+}
+
+.ticker-viewport:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+/* ————— risk agent answer animations ————— */
+
+@keyframes risk-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes risk-row-in {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes risk-sheen {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* each top-level answer block eases in as it streams in */
+.risk-block {
+  animation: risk-rise 0.38s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* table rows stagger in — delay is set inline per row index */
+.risk-row {
+  animation: risk-row-in 0.32s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* row hover highlight for the intelligence tables */
+.risk-tr {
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+.risk-tr:hover {
+  background-color: rgba(249, 115, 22, 0.06) !important;
+}
+
+/* stat card grid stagger */
+.risk-card {
+  animation: risk-rise 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* animated accent bar that sweeps under section headers */
+.risk-accent {
+  background: linear-gradient(
+    90deg,
+    rgba(249, 115, 22, 0.15) 0%,
+    rgba(249, 115, 22, 0.8) 50%,
+    rgba(249, 115, 22, 0.15) 100%
+  );
+  background-size: 200% 100%;
+  animation: risk-sheen 3s linear infinite;
+}
+
+/* ————— Route Agent theming (scoped by data-ra-theme) ————— */
+
+[data-ra-theme="dark"] {
+  --ra-bg: #04100d;
+  --ra-surface: rgba(7, 19, 15, 0.85);
+  --ra-surface-solid: #0a1713;
+  --ra-inset: rgba(255, 255, 255, 0.03);
+  --ra-hover: rgba(255, 255, 255, 0.06);
+  --ra-border: rgba(255, 255, 255, 0.09);
+  --ra-text: #f2faf7;
+  --ra-dim: rgba(235, 248, 244, 0.64);
+  --ra-faint: rgba(235, 248, 244, 0.38);
+  --ra-good: #22e39a;
+  --ra-good-wash: rgba(34, 227, 154, 0.1);
+  --ra-warn: #f7b955;
+  --ra-warn-wash: rgba(247, 185, 85, 0.12);
+  --ra-bad: #ff5d5d;
+  --ra-bad-wash: rgba(255, 93, 93, 0.1);
+  --ra-bad-border: rgba(255, 93, 93, 0.35);
+  --ra-blue: #5b8cff;
+  --ra-pill-text: #04100d;
+  --ra-label: rgba(235, 248, 244, 0.85);
+  --ra-label-halo: rgba(4, 16, 13, 0.9);
+  --ra-mark-stroke: #04110d;
+  --ra-mark-fill: #0a1512;
+}
+
+[data-ra-theme="light"] {
+  --ra-bg: #eef2f1;
+  --ra-surface: rgba(255, 255, 255, 0.88);
+  --ra-surface-solid: #ffffff;
+  --ra-inset: rgba(12, 24, 21, 0.035);
+  --ra-hover: rgba(12, 24, 21, 0.06);
+  --ra-border: rgba(12, 24, 21, 0.12);
+  --ra-text: #0c1815;
+  --ra-dim: rgba(12, 24, 21, 0.66);
+  --ra-faint: rgba(12, 24, 21, 0.42);
+  --ra-good: #059669;
+  --ra-good-wash: rgba(5, 150, 105, 0.1);
+  --ra-warn: #b45309;
+  --ra-warn-wash: rgba(180, 83, 9, 0.1);
+  --ra-bad: #dc2626;
+  --ra-bad-wash: rgba(220, 38, 38, 0.08);
+  --ra-bad-border: rgba(220, 38, 38, 0.35);
+  --ra-blue: #2f56c8;
+  --ra-pill-text: #ffffff;
+  --ra-label: rgba(12, 24, 21, 0.82);
+  --ra-label-halo: rgba(255, 255, 255, 0.92);
+  --ra-mark-stroke: #ffffff;
+  --ra-mark-fill: #ffffff;
+}
+
+/* markers: zero-size anchors — children position around the point */
+.ra-marker {
+  width: 0;
+  height: 0;
+  overflow: visible;
+}
+
+/* element centered exactly on the marker anchor */
+.ra-cent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+}
+
+.ra-node-label {
+  position: absolute;
+  top: 0;
+  transform: translateY(-50%);
+  font-size: 10px;
+  letter-spacing: 0.01em;
+  pointer-events: none;
+  text-shadow:
+    0 0 3px var(--ra-label-halo),
+    0 0 6px var(--ra-label-halo),
+    0 1px 2px var(--ra-label-halo);
+}
+
+.ra-tip {
+  position: absolute;
+  left: 0;
+  bottom: 9px;
+  transform: translateX(-50%);
+  z-index: 50;
+}
+
+@keyframes ra-ping {
+  0% {
+    transform: translate(-50%, -50%) scale(0.45);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.1);
+    opacity: 0;
+  }
+}
+.ra-ping {
+  animation: ra-ping 1.8s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+}
+
+@keyframes ra-blink {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.12;
+  }
+}
+.ra-blink {
+  animation: ra-blink 2.4s ease-in-out infinite;
+}
+
+/* slim themed scrollbar for the intelligence panel + deep dive */
+.ra-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ra-faint) transparent;
+}
+.ra-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.ra-scroll::-webkit-scrollbar-thumb {
+  background: var(--ra-faint);
+  border-radius: 999px;
+}
+.ra-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* MapLibre chrome: transparent popup shell (our card styles itself) */
+.maplibregl-popup {
+  z-index: 45;
+}
+.maplibregl-popup-content {
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+  border-radius: 0;
+}
+.maplibregl-popup-tip {
+  display: none;
+}
+[data-ra-theme] .maplibregl-ctrl-attrib {
+  background: var(--ra-surface);
+  color: var(--ra-faint);
+  font-size: 10px;
+  border-radius: 8px 0 0 0;
+}
+[data-ra-theme] .maplibregl-ctrl-attrib a {
+  color: var(--ra-dim);
+}
+[data-ra-theme] .maplibregl-canvas {
+  outline: none;
+}
+[data-ra-theme] .maplibregl-canvas-container.maplibregl-interactive {
+  cursor: grab;
+}
+[data-ra-theme] .maplibregl-canvas-container.maplibregl-interactive:active {
+  cursor: grabbing;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ra-ping,
+  .ra-blink {
+    animation: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-flow,
+  .route-flow-slow,
+  .pulse-ring,
+  .live-dot,
+  .ticker-track,
+  .risk-block,
+  .risk-row,
+  .risk-card,
+  .risk-accent {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,20 @@
+# Existing
+.claude
+project_A.pdf
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Environment files
+.env
+agents/.env
+
+# Next.js
+landing-page/node_modules/
+landing-page/.next/
+
+# Local database (optional)
+agents/vorentice_news.db
